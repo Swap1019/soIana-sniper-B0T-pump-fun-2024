@@ -1,6 +1,6 @@
 class Board:
     def __init__(self):
-        self.board :list = [i for i in range(0,9)]
+        self.board :list = [str(i) for i in range(0,9)]
 
     def print_board(self):
         for group in zip(*[iter(self.board)] * 3):
@@ -33,7 +33,11 @@ class Player:
     def update_board(self,player,game):
         game.board[player.index] = self.letter
     
-    def get_data(self):
-        self.index :int = int(input(f"{'pls assign the index for :',self.letter}"))
-
-    
+    def get_data(self,game):
+        while True:
+            try:
+                self.index :int = int(input(f"{'pls assign the index for',self.letter}"))
+                if game.board[self.index].isdigit():
+                    break
+            except (ValueError,IndexError):
+                print('pls assign an index in range')
